@@ -1,0 +1,16 @@
+program Estacionamento;
+
+uses
+  Forms,
+  uTelaPadrao01 in 'D:\Formulario\uTelaPadrao01.pas' {FTelaPadrao01},
+  uEstacionamento in 'uEstacionamento.pas' {FEstacionamento};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TFTelaPadrao01, FTelaPadrao01);
+  Application.CreateForm(TFEstacionamento, FEstacionamento);
+  Application.Run;
+end.

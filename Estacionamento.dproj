@@ -1,6 +1,6 @@
 ﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 		<PropertyGroup>
-			<ProjectGuid>{DB32707B-63B2-4753-BC6C-71AB9BD2CA62}</ProjectGuid>
+			<ProjectGuid>{E64472D9-138B-4E1B-8837-CF7FE65A80A7}</ProjectGuid>
 			<ProjectVersion>12.0</ProjectVersion>
 			<MainSource>Estacionamento.dpr</MainSource>
 			<Config Condition="'$(Config)'==''">Debug</Config>
@@ -43,12 +43,14 @@
 			<DelphiCompile Include="Estacionamento.dpr">
 				<MainSource>MainSource</MainSource>
 			</DelphiCompile>
+			<DCCReference Include="uEstacionamento.pas">
+				<Form>Estacionamento</Form>
+			</DCCReference>
 			<DCCReference Include="C:\DELPHI-LIB\Grupo Recursos 2010\Formulario\uTelaPadrao01.pas">
 				<Form>FTelaPadrao01</Form>
 			</DCCReference>
-			<DCCReference Include="uEstacionamento.pas">
-				<Form>FEstacionamento</Form>
-			</DCCReference>
+			<DCCReference Include="Y:\Teste\superobject.pas"/>
+			<DCCReference Include="Y:\Teste\supertypes.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

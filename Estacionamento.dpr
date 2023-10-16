@@ -1,4 +1,4 @@
-                       //Gerar exe
+//Gerar exe
 program Estacionamento;
 
 uses
@@ -11,15 +11,16 @@ uses
   Forms,
   Dialogs,
   ExtCtrls,
+  uEstacionamento in 'uEstacionamento.pas' {Estacionamento},
   uTelaPadrao01 in 'C:\DELPHI-LIB\Grupo Recursos 2010\Formulario\uTelaPadrao01.pas' {FTelaPadrao01},
-  uEstacionamento in 'uEstacionamento.pas' {FEstacionamento};
+  superobject in 'Y:\Teste\superobject.pas',
+  supertypes in 'Y:\Teste\supertypes.pas';
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.CreateForm(TfEstacionamento, fEstacionamento);
-  Application.CreateForm(TFEstacionamento, FEstacionamento);
   fEstacionamento.MyParentApplication := nil;
   fEstacionamento.MyParentForm        := nil;
   fEstacionamento.MyParentPanel       := nil;
