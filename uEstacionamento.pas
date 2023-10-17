@@ -27,15 +27,41 @@ type
     sEdit_Text4: TsEdit_Text;
     Label7: TLabel;
     Label8: TLabel;
-    Label9: TLabel;
     Label10: TLabel;
     sEdit_Text5: TsEdit_Text;
     Label11: TLabel;
     Button2: TButton;
     sEdit1: TsEdit;
-    ADOQuery1: TADOQuery;
+    PageControl2: TPageControl;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
+    Label12: TLabel;
+    sEdit_Text8: TsEdit_Text;
+    Label14: TLabel;
+    Label15: TLabel;
+    sEdit_Text6: TsEdit_Text;
+    Label16: TLabel;
+    sEdit_Text7: TsEdit_Text;
+    sEdit_Text16: TsEdit_Text;
+    Label13: TLabel;
+    sEdit_Text17: TsEdit_Text;
+    Label27: TLabel;
+    Button3: TButton;
+    Label17: TLabel;
+    sEdit_Text9: TsEdit_Text;
+    Label9: TLabel;
+    TabSheet3: TTabSheet;
+    DBGrid1: TDBGrid;
+    Button4: TButton;
+    Label19: TLabel;
+    sEdit_Text11: TsEdit_Text;
+    Sp_info: TADOStoredProc;
+    Ds_Info: TDataSource;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+
   private
     { Private declarations }
 
@@ -135,20 +161,64 @@ procedure TFEstacionamento.Button2Click(Sender: TObject);
 begin
   inherited;
 
-  ADOQuery1.SQL.Text := '	insert into PARK (NOME_PARK, LOGRADOURO, BAIRRO, LOCALIDADE, UF, CEP) values (:nome_park, :logradouro, :bairro, :localidade, :uf, :cep)';
-  ADOQuery1.Parameters.ParamByName('nome_park').Value := sEdit1.Text;
-  ADOQuery1.Parameters.ParamByName('logradouro').Value := sEdit_Text1.Text;
-  ADOQuery1.Parameters.ParamByName('bairro').Value := sEdit_Text2.Text;
-  ADOQuery1.Parameters.ParamByName('localidade').Value := sEdit_Text3.Text;
-  ADOQuery1.Parameters.ParamByName('cep').Value := sEdit_Text4.Text;
-  ADOQuery1.Parameters.ParamByName('uf').Value := sEdit_Text5.Text;
+  Sp_Stored.ProcedureName := 'cadastrar_park_lais';
+  Sp_Stored.Parameters.Refresh;
+  Sp_Stored.Parameters.ParamByName('@nome_park').Value := sEdit1.Text;
+  Sp_Stored.Parameters.ParamByName('@logradouro').Value := sEdit_Text1.Text;
+  Sp_Stored.Parameters.ParamByName('@bairro').Value := sEdit_Text2.Text;
+  Sp_Stored.Parameters.ParamByName('@localidade').Value := sEdit_Text3.Text;
+  Sp_Stored.Parameters.ParamByName('@cep').Value := sEdit_Text4.Text;
+  Sp_Stored.Parameters.ParamByName('@uf').Value := sEdit_Text5.Text;
 
-  ADOQuery1.ExecSQL;
+  try
+    Sp_Stored.ExecProc;
+    ShowMessage('Park cadastrado com sucesso!');
+    sEdit1.Text := '';
+  except
+    on E: Exception do
+    begin
+      ShowMessage('Erro ao cadastrar o park: ' + E.Message);
+    end;
+  end;
+end;
 
-   ShowMessage('Park cadastrado com sucesso!');
+
+procedure TFEstacionamento.Button3Click(Sender: TObject);
+begin
+  inherited;
+
+   Sp_Stored.ProcedureName := 'registro_lais';
+   Sp_Stored.Parameters.Refresh;
+   Sp_Stored.Parameters.ParamByName('@cpf_cliente').Value:= sEdit_Text16.Text;
+   Sp_Stored.Parameters.ParamByName('@id_park').Value:=sEdit_Text9.Text;
+   Sp_Stored.Parameters.ParamByName('@placa_veiculo').Value:= sEdit_Text8.Text;
+   Sp_Stored.Parameters.ParamByName('@horaEntrada').Value:= sEdit_Text6.Text;
+   Sp_Stored.Parameters.ParamByName('@horaSaida').Value:= sEdit_Text7.Text;
+   Sp_Stored.Parameters.ParamByName('@valor').Value:= sEdit_Text17.Text;
+
+   try
+    Sp_Stored.ExecProc;
+    ShowMessage('Vaga cadastrada com sucesso!');
+
+  except
+    on E: Exception do
+    begin
+      ShowMessage('Erro ao cadastrar vaga: ' + E.Message);
+    end;
+  end;
 
 
-  sEdit1.Text := '';
+end;
+
+
+procedure TFEstacionamento.Button4Click(Sender: TObject);
+begin
+  inherited;
+
+      Sp_info.Close;
+      Sp_info.ProcedureName := 'stb_localizar_condutor_lais';
+      Sp_info.Parameters.Refresh;
+      Sp_info.Open;
 
 end;
 
